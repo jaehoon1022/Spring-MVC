@@ -30,18 +30,21 @@ public class FrontControllerServletV4 extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("FrontControllerServletV4.service");
 
-        // /front-controller/v4/members
+        // /front-controller/v4/members/save
         String requestURI = request.getRequestURI();
 
+        //매핑정보로 컨트롤러 조회 (MemberSaveControllerV4)
         ControllerV4 controller = controllerMap.get(requestURI);
         if(controller == null){
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
+        //컨트롤러 호출
         //paramMap
         Map<String, String> paramMap = createParamMap(request);
         Map<String, Object> model = new HashMap<>(); //추가
+        //paramMap(파라미터 이름과 파라미터 Value값), 빈 model 객체 전달?
         String viewName = controller.process(paramMap, model);
 
         MyView view = viewResolver(viewName);

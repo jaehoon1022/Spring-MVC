@@ -54,7 +54,7 @@ public class FrontControllerServletV5 extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        //MemberSaveControllerV3
         Object handler = getHandler(request);
 
         if(handler == null){
@@ -63,7 +63,8 @@ public class FrontControllerServletV5 extends HttpServlet {
         }
 
         MyHandlerAdapter adapter = getHandlerAdapter(handler);
-
+        //클라이언트 요청을 받은 request, response 객체가 handle(ControllerV3HandlerAdapter.handle 로 들어간다)
+        //추가로 MemberSaveControllerV3 까지
         ModelView mv = adapter.handle(request, response, handler);
 
 
@@ -79,12 +80,13 @@ public class FrontControllerServletV5 extends HttpServlet {
     }
 
     private MyHandlerAdapter getHandlerAdapter(Object handler) {
-        for (MyHandlerAdapter adapter : handlerAdapters) {
-            if(adapter.supports(handler)){
-                return adapter;
+        for (MyHandlerAdapter adapter : handlerAdapters) {  //현재 v3,v4가 들어있고 boolean support를 통해서 내가 찾고자하는
+            if(adapter.supports(handler)){                  //v3 handler가 맞는지 확인 만약 내가 찾는 handler가
+                return adapter;//ControllerV3HandlerAdapter //v3 handler가 맞다면 ControllerV3HandlerAdapter 반환
             }
         }
         throw new IllegalArgumentException("handler adapter를 찾을 수 없습니다. handler=" + handler);
+        //만약 if문에서 내가 찾는 handler가 없다면 위와같은 예외처리를 해준다.
     }
     private MyView viewResolver(String viewName) {
         return new MyView("/WEB-INF/views/" + viewName + ".jsp");

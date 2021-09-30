@@ -19,7 +19,7 @@ public class ControllerV3HandlerAdapter implements MyHandlerAdapter {
 
     @Override
     public ModelView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
-
+        //FrontControllerServletV5.service 에서온 handler -> MemberSaveControllerV3를 controller 변수에 담는다.
         ControllerV3 controller = (ControllerV3) handler;
 
         Map<String, String> paramMap = createParamMap(request);

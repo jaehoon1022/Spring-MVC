@@ -29,6 +29,7 @@ public class FrontControllerServletV5 extends HttpServlet {
     private final Map<String, Object> handlerMappingMap = new HashMap<>();
     private final List<MyHandlerAdapter> handlerAdapters = new ArrayList<>();
 
+    //핸들러 초기화, 핸들러 조회
     public FrontControllerServletV5() {
         initHandlerMappingMap();
         initHandlerAdapters();
